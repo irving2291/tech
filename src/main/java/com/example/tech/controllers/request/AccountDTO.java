@@ -4,11 +4,13 @@ public class AccountDTO {
     private Long clientId;
     private Long number;
     private Short type;
+    private Double balance;
     private Boolean status;
 
-    public AccountDTO(Long clientId, Long number, Short type, Boolean status) {
+    public AccountDTO(Long clientId, Long number, Short type, Double balance, Boolean status) {
         this.clientId = clientId;
         this.number = number;
+        this.balance = balance;
         this.type = type;
         this.status = status;
     }
@@ -39,6 +41,14 @@ public class AccountDTO {
 
     public Boolean getStatus() {
         return status;
+    }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     public void setStatus(Boolean status) {

@@ -7,10 +7,8 @@ import com.example.tech.services.AccountService;
 import com.example.tech.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.Optional;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/account")
@@ -21,11 +19,14 @@ public class AccountController {
     @Autowired
     ClientService clientService;
 
+    @GetMapping()
+    public ArrayList<Account> getAll() {
+        return accountService.getAll();
+    }
+
     @PostMapping()
     public Account save(@RequestBody AccountDTO accountDTO) {
         Client client = clientService.getById(accountDTO.getClientId()).get();
-        Logger logger = LoggerFactory.getLogger(client.getName());
-        logger.info("es este: " + client.getName());
         return accountService.create(accountDTO, client);
     }
 }

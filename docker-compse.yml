@@ -1,0 +1,38 @@
+version: '3.7'
+networks:
+  TechDefault:
+    name: tech_default
+    driver: bridge
+services:
+  app:
+    depends_on:
+      - mysql
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/springboot
+      SPRING_DATASOURCE_USERNAME: homestead
+      SPRING_DATASOURCE_PASSWORD: secret
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    networks:
+      - TechDefault
+
+  mysql:
+    image: mysql:5.7.22
+    container_name: mysql
+    restart: unless-stopped
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: springboot
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - TechDefault
