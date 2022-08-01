@@ -60,10 +60,6 @@ public class Transaction implements Serializable {
         this.balance = balance;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
     public void setAccount(Account account) {
         this.account = account;
     }

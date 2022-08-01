@@ -1,9 +1,7 @@
 package com.example.tech.controllers;
 
-import com.example.tech.controllers.request.AccountDTO;
 import com.example.tech.controllers.request.TransactionDTO;
 import com.example.tech.models.Account;
-import com.example.tech.models.Client;
 import com.example.tech.models.Transaction;
 import com.example.tech.services.AccountService;
 import com.example.tech.services.TransactionService;
@@ -34,6 +32,9 @@ public class TransactionController {
     @PostMapping()
     public Transaction save(@RequestBody TransactionDTO transactionDTO) {
         Account account = accountService.getById(transactionDTO.getAccountId()).get();
-        return transactionService.create(transactionDTO, account);
+        Transaction transaction = transactionService.create(transactionDTO, account);
+        account.setBalance(transaction.getBalance());
+        accountService.save(account);
+        return transaction;
     }
 }

@@ -28,4 +28,8 @@ public class AccountService {
         Account account = new Account(accountDTO.getNumber(), accountDTO.getType(), accountDTO.getBalance(), accountDTO.getStatus(), client);
         return accountRepository.save(account);
     }
+
+    public Account save(Account account) {
+        return accountRepository.save(account);
+    }
 }
