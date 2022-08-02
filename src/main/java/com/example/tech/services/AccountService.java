@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class AccountService {
@@ -24,12 +25,28 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
+    public Optional<Account> getByNumber(Long number) {
+        return accountRepository.findByNumber(number);
+    }
+
     public Account create(AccountDTO accountDTO, Client client) {
         Account account = new Account(accountDTO.getNumber(), accountDTO.getType(), accountDTO.getBalance(), accountDTO.getStatus(), client);
+        if (account.getNumber() == null) {
+            account.setNumber(new Random().nextLong(1999999999));
+        }
         return accountRepository.save(account);
     }
 
     public Account save(Account account) {
         return accountRepository.save(account);
+    }
+
+    public Boolean deleteAccount(Long id) {
+        try {
+            accountRepository.deleteById(id);
+            return true;
+        } catch (Exception err) {
+            return false;
+        }
     }
 }

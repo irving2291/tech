@@ -20,6 +20,10 @@ public class Transaction implements Serializable {
     @JoinColumn(name = "account_id")
     private Account account;
 
+    public Account getAccount() {
+        return account;
+    }
+
     public Long getTransactionId() {
         return transactionId;
     }

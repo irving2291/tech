@@ -25,4 +25,13 @@ public class ClientService {
     public Optional<Client> getById(Long id) {
         return clientRepository.findById(id);
     }
+
+    public Boolean deleteClient(Long id) {
+        try {
+            clientRepository.deleteById(id);
+            return true;
+        } catch (Exception err) {
+            return false;
+        }
+    }
 }

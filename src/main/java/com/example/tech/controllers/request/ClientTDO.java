@@ -1,37 +1,15 @@
-package com.example.tech.models;
+package com.example.tech.controllers.request;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import javax.persistence.*;
-import java.io.Serializable;
-
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@OnDelete(action = OnDeleteAction.CASCADE)
-public class Person implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private Long personId;
-
-    protected String name;
-    protected String lastName;
-    protected String gender;
-    protected Integer age;
-    @Column(unique = true, nullable = false)
-    protected String dni;
-    protected String address;
-    protected String phone;
-
-    public Long getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Long personId) {
-        this.personId = personId;
-    }
+public class ClientTDO {
+    private String name;
+    private String lastName;
+    private String gender;
+    private Integer age;
+    private String dni;
+    private String address;
+    private String phone;
+    private String password;
+    private Boolean status;
 
     public String getName() {
         return name;
@@ -87,5 +65,21 @@ public class Person implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }
