@@ -1,13 +1,11 @@
 package com.example.tech.controllers;
 
-import com.example.tech.controllers.request.AccountDTO;
 import com.example.tech.controllers.request.TransactionDTO;
 import com.example.tech.controllers.response.TransactionResponse;
-import com.example.tech.exceptions.UnavailableBalance;
 import com.example.tech.models.Account;
 import com.example.tech.models.Transaction;
-import com.example.tech.services.AccountService;
 import com.example.tech.services.GenerateTransaction;
+import com.example.tech.services.AccountService;
 import com.example.tech.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;

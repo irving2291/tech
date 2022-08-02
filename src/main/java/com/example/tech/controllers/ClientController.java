@@ -1,11 +1,7 @@
 package com.example.tech.controllers;
 
-import com.example.tech.controllers.request.AccountDTO;
 import com.example.tech.controllers.request.ClientTDO;
-import com.example.tech.enums.AccountType;
-import com.example.tech.enums.EnumTypes;
 import com.example.tech.models.Client;
-import com.example.tech.services.AccountService;
 import com.example.tech.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

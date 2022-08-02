@@ -2,7 +2,7 @@ version: '3.7'
 networks:
   TechDefault:
     name: tech_default
-    driver: bridge
+    driver: host
 services:
   app:
     depends_on:
@@ -12,10 +12,11 @@ services:
       dockerfile: Dockerfile
     container_name: app
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/springboot
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3308/springboot
       SPRING_DATASOURCE_USERNAME: homestead
       SPRING_DATASOURCE_PASSWORD: secret
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_ERROR_INCLUDE-MESSAGE: always
     ports:
       - "8080:8080"
     networks:
@@ -25,6 +26,8 @@ services:
     image: mysql:5.7.22
     container_name: mysql
     restart: unless-stopped
+    ports:
+      - "3308:3306"
     volumes:
       - ./mysql:/var/lib/mysql
     environment:
