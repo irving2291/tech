@@ -357,6 +357,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete transaction",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/transaction/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"transaction",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

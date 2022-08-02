@@ -1,5 +1,6 @@
 package com.example.tech.controllers;
 
+import com.example.tech.controllers.request.AccountDTO;
 import com.example.tech.controllers.request.TransactionDTO;
 import com.example.tech.controllers.response.TransactionResponse;
 import com.example.tech.exceptions.UnavailableBalance;
@@ -86,5 +87,20 @@ public class TransactionController {
         account.setBalance(transaction.getBalance());
         accountService.save(account);
         return new TransactionResponse(transaction);
+    }
+
+    @DeleteMapping(path = "/{transactionId}")
+    public HashMap<String, Object> delete(@PathVariable("transactionId") Long transactionId) {
+        HashMap<String, Object> response = new HashMap<>();
+        Transaction transaction = transactionService.getById(transactionId).get();
+        if (transactionService.deleteTransaction(transactionId)) {
+            Account account = transaction.getAccount();
+            account.setBalance(transaction.getBalance() - transaction.getValue());
+            accountService.save(account);
+            response.put("message", "transaction was delete successful");
+        } else {
+            response.put("message", "transaction not delete account");
+        }
+        return response;
     }
 }
