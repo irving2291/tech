@@ -1,7 +1,6 @@
 package com.example.tech.services.Impl;
 
 import com.example.tech.models.Account;
-import com.example.tech.models.Client;
 import com.example.tech.models.Transaction;
 import com.example.tech.repositories.TransactionRepository;
 import com.example.tech.services.TransactionService;

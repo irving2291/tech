@@ -1,6 +1,5 @@
 package com.example.tech.models;
 
-import com.example.tech.controllers.request.ClientTDO;
 import com.example.tech.controllers.request.TransactionDTO;
 
 import javax.persistence.*;
