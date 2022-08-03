@@ -4,11 +4,14 @@ import com.example.tech.controllers.request.TransactionDTO;
 import com.example.tech.controllers.response.TransactionResponse;
 import com.example.tech.models.Account;
 import com.example.tech.models.Transaction;
-import com.example.tech.services.GenerateTransaction;
+import com.example.tech.services.Impl.GenerateTransaction;
+import com.example.tech.services.Impl.GenerateTransactionImpl;
 import com.example.tech.services.AccountService;
 import com.example.tech.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -88,17 +91,20 @@ public class TransactionController {
     }
 
     @DeleteMapping(path = "/{transactionId}")
-    public HashMap<String, Object> delete(@PathVariable("transactionId") Long transactionId) {
+    public ResponseEntity<HashMap<String, Object>> delete(@PathVariable("transactionId") Long transactionId) {
         HashMap<String, Object> response = new HashMap<>();
         Transaction transaction = transactionService.getById(transactionId).get();
+        HttpStatus httpStatus;
         if (transactionService.deleteTransaction(transactionId)) {
             Account account = transaction.getAccount();
             account.setBalance(transaction.getBalance() - transaction.getValue());
             accountService.save(account);
             response.put("message", "transaction was delete successful");
+            httpStatus = HttpStatus.OK;
         } else {
             response.put("message", "transaction not delete account");
+            httpStatus = HttpStatus.CONFLICT;
         }
-        return response;
+        return new ResponseEntity<>(response, httpStatus);
     }
 }

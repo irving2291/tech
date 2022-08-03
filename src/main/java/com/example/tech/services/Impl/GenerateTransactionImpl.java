@@ -1,4 +1,4 @@
-package com.example.tech.services;
+package com.example.tech.services.Impl;
 
 import com.example.tech.controllers.request.TransactionDTO;
 import com.example.tech.exceptions.UnavailableBalance;
@@ -8,11 +8,10 @@ import com.example.tech.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpHeaders;
 import java.util.Date;
 
 @Service
-public class GenerateTransaction {
+public class GenerateTransactionImpl implements GenerateTransaction {
     @Autowired
     TransactionRepository transactionRepository;
 

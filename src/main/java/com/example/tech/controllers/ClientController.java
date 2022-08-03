@@ -4,6 +4,8 @@ import com.example.tech.controllers.request.ClientTDO;
 import com.example.tech.models.Client;
 import com.example.tech.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,31 +44,37 @@ public class ClientController {
     }
 
     @PatchMapping(path = "/{clientId}")
-    public HashMap<String, Object> updateClient(
+    public ResponseEntity<HashMap<String, Object>> updateClient(
             @PathVariable("clientId") Long clientId,
             @RequestBody ClientTDO clientTDO) {
 
         HashMap<String, Object> response = new HashMap<>();
+        HttpStatus httpStatus;
         try {
             Client client = clientService.getById(clientId).get();
             client.setClientDto(clientTDO);
             clientService.save(client);
             response.put("message", "account was updated successful");
             response.put("accountId", clientId);
+            httpStatus = HttpStatus.OK;
         } catch (Exception err) {
             response.put("message", err.getMessage());
+            httpStatus = HttpStatus.CONFLICT;
         }
-        return response;
+        return new ResponseEntity<>(response, httpStatus);
     }
 
     @DeleteMapping(path = "/{clientId}")
-    public HashMap<String, Object> delete(@PathVariable("clientId") Long clientId) {
+    public ResponseEntity<HashMap<String, Object>> delete(@PathVariable("clientId") Long clientId) {
         HashMap<String, Object> response = new HashMap<>();
+        HttpStatus httpStatus;
         if (clientService.deleteClient(clientId)) {
             response.put("message", "client was delete successful");
+            httpStatus = HttpStatus.OK;
         } else {
-            response.put("message", "client not delete account");
+            response.put("message", "could not delete client");
+            httpStatus = HttpStatus.CONFLICT;
         }
-        return response;
+        return new ResponseEntity<>(response, httpStatus);
     }
 }
