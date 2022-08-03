@@ -1,8 +1,10 @@
 package com.example.tech.controllers;
 
+import com.example.tech.controllers.request.ClientTDO;
 import com.example.tech.controllers.request.TransactionDTO;
 import com.example.tech.controllers.response.TransactionResponse;
 import com.example.tech.models.Account;
+import com.example.tech.models.Client;
 import com.example.tech.models.Transaction;
 import com.example.tech.services.Impl.GenerateTransaction;
 import com.example.tech.services.Impl.GenerateTransactionImpl;
@@ -88,6 +90,27 @@ public class TransactionController {
         account.setBalance(transaction.getBalance());
         accountService.save(account);
         return new TransactionResponse(transaction);
+    }
+
+    @PatchMapping(path = "/{transactionId}")
+    public ResponseEntity<HashMap<String, Object>> updateTransaction(
+            @PathVariable("transactionId") Long transactionId,
+            @RequestBody TransactionDTO transactionDTO) {
+
+        HashMap<String, Object> response = new HashMap<>();
+        HttpStatus httpStatus;
+        try {
+            Transaction transaction = transactionService.getById(transactionId).get();
+            transaction.setClientDto(transactionDTO);
+            transactionService.save(transaction);
+            response.put("message", "account was updated successful");
+            response.put("transactionId", transactionId);
+            httpStatus = HttpStatus.OK;
+        } catch (Exception err) {
+            response.put("message", err.getMessage());
+            httpStatus = HttpStatus.CONFLICT;
+        }
+        return new ResponseEntity<>(response, httpStatus);
     }
 
     @DeleteMapping(path = "/{transactionId}")

@@ -1,5 +1,8 @@
 package com.example.tech.models;
 
+import com.example.tech.controllers.request.ClientTDO;
+import com.example.tech.controllers.request.TransactionDTO;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -66,5 +69,17 @@ public class Transaction implements Serializable {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public void setClientDto(TransactionDTO transactionDTO) {
+        if (transactionDTO.getValue() != null) {
+            this.setValue(transactionDTO.getValue());
+        }
+        if (transactionDTO.getType() != null) {
+            this.setType(transactionDTO.getType());
+        }
+        if (transactionDTO.getBalance() != null) {
+            this.setBalance(transactionDTO.getBalance());
+        }
     }
 }

@@ -55,7 +55,7 @@ public class ClientController {
             client.setClientDto(clientTDO);
             clientService.save(client);
             response.put("message", "account was updated successful");
-            response.put("accountId", clientId);
+            response.put("clientId", clientId);
             httpStatus = HttpStatus.OK;
         } catch (Exception err) {
             response.put("message", err.getMessage());

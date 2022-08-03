@@ -1,6 +1,7 @@
 package com.example.tech.services.Impl;
 
 import com.example.tech.models.Account;
+import com.example.tech.models.Client;
 import com.example.tech.models.Transaction;
 import com.example.tech.repositories.TransactionRepository;
 import com.example.tech.services.TransactionService;
@@ -30,6 +31,10 @@ public class TransactionServiceImpl implements TransactionService {
 
     public ArrayList<Transaction> getByRangeAndAccount(Date from, Date until, Account account) {
         return (ArrayList<Transaction>) transactionRepository.findByDateTimeBetweenAndAccount(from, until, account);
+    }
+
+    public Transaction save(Transaction transaction) {
+        return transactionRepository.save(transaction);
     }
 
     public Optional<Transaction> getById(Long id) {
